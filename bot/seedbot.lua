@@ -224,122 +224,122 @@ function create_config( )
     disabled_channels = {},
     realm = {60156627},--Realms Id
     moderation = {data = 'data/moderation.json'},
-    about_text = [[Teleseed v1
-An advance Administration bot based on yagop/telegram-bot 
+    about_text = [[Teledragon v2
+Based on telegram bot ➡ MR_ARASH EDITOR ✅
 
-https://github.com/SEEDTEAM/TeleSeed
+ARASH ➡DRAGON BOT
 
-Admins
-@iwals [Founder]
-@imandaneshi [Developer]
-@seyedan25 [Manager]
+ادمین ها
+ARASH
+فارسی شده توسط ارش
+@arash_admin_dragon
 
-Special thanks to
-awkward_potato
-Siyanew
-topkecleon
-Vamptacus
+با تشکر از
+ارش
+@arash_admin_dragon
+ARASH
+✅✅✅
 
-Our channels
-@teleseedch [English]
+تمامی کانال های ربات
+@teledragonch [فارسی]
 ]],
     help_text = [[
 Commands list :
-
+لیست دستورات ربات ✅دراگون بات
 !kick [username|id]
-You can also do it by reply
+کیک باریپلی هم میتونید
 
 !ban [ username|id]
-You can also do it by reply
+بن با ریپلی هم میتونید بن کنید
 
 !unban [id]
-You can also do it by reply
+ان بن با ریپلی هم میتونید ان بن کنید
 
 !who
-Members list
+اعضای گروه و ایدی ان ها
 
 !modlist
-Moderators list
+لیست مودها ادمین گروه
 
 !promote [username]
-Promote someone
+اضافه کردن به مودها
 
 !demote [username]
-Demote someone
+بر کنار کردن از مود فقط برای ادمین ها و اونرها (صاحب
 
 !kickme
-Will kick user
+خارج شدن از گروه
 
 !about
-Group description
+درباره گروه
 
 !setphoto
-Set and locks group photo
+گزاشتن عکس و قفل عکس
 
 !setname [name]
-Set group name
+گزاشتن اسم برای گروه
 
 !rules
-Group rules
+قوانین گروه
 
 !id
-return group id or user id
+ایدی گروه /با ریپلی ایدی فرد مقابل
 
-!help
+!help لیست دستورات
 
-!lock [member|name|bots]
-Locks [member|name|bots] 
+!lock [member|name|bots|flood]
+قفل کردن [member|name|bots|flood]
 
-!unlock [member|name|photo|bots]
-Unlocks [member|name|photo|bots]
+!unlock [member|name|photo|bots|flood]
+باز کردن قفل [member|name|photo|bots|flood]
 
 !set rules <text>
-Set <text> as rules
+گزاشتن قوانین
 
 !set about <text>
-Set <text> as about
+گزاشتن درباره گروه
 
 !settings
-Returns group settings
+دیدن تنظیمات گروه 
 
 !newlink
-create/revoke your group link
+لینک جدید
 
 !link
-returns group link
+لینک گروه
 
 !owner
-returns group owner id
+صاحب گروه
 
 !setowner [id]
-Will set id as owner
+تعیین کردن صاحب (اونر
 
 !setflood [value]
-Set [value] as flood sensitivity
+تنظیم کردن مقدار اسپم 
 
 !stats
-Simple message statistics
+امار پیام های فرستاده شده
 
 !save [value] <text>
-Save <text> as [value]
+ذخیره <text> as [value]
 
 !get [value]
-Returns text of [value]
+دریافت دستور وارد شده [value]
 
 !clean [modlist|rules|about]
-Will clear [modlist|rules|about] and set it to nil
+پاک کردن [modlist|rules|about]
 
 !res [username]
-returns user id
+پیدا کردن ایدی یک فرد
 "!res @username"
 
 !log
-will return group logs
+دستوراتی که تو گروه زدن
 
 !banlist
-will return group ban list
+لیست کسانی که بن شدن
 
-**U can use both "/" and "!" 
+میتوانید از  "/" و "!" استفاده کنید
 
 
 *Only owner and mods can add bots in group

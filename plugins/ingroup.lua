@@ -358,32 +358,32 @@ local function promote(receiver, member_username, member_id)
     return send_large_msg(receiver, 'اگروه تایید نشده.')
   end
   if data[group]['moderators'][tostring(member_id)] then
-    return send_large_msg(receiver, member_username..' is already a moderator.')
+    return send_large_msg(receiver, member_username..'قبلا ادمین گروه شده')
   end
   data[group]['moderators'][tostring(member_id)] = member_username
   save_data(_config.moderation.data, data)
-  return send_large_msg(receiver, '@'..member_username..' has been promoted.')
+  return send_large_msg(receiver, '@'..member_username..' ادمین گروه شد')
 end
 
 local function demote(receiver, member_username, member_id)
   local data = load_data(_config.moderation.data)
-  local group = string.gsub(receiver, 'chat#id', '')
+  local group = string.gsub(receiver, 'گروه#ایدی', '')
   if not data[group] then
-    return send_large_msg(receiver, 'Group is not added.')
+    return send_large_msg(receiver, 'گروه تایید نشده.')
   end
   if not data[group]['moderators'][tostring(member_id)] then
-    return send_large_msg(receiver, member_username..' is not a moderator.')
+    return send_large_msg(receiver, member_username..' ایشان ادمین گروه نیستند')
   end
   data[group]['moderators'][tostring(member_id)] = nil
   save_data(_config.moderation.data, data)
-  return send_large_msg(receiver, '@'..member_username..' has been demoted.')
+  return send_large_msg(receiver, '@'..member_username..' از ادمینی بر کنار شد')
 end
 
 local function username_id(cb_extra, success, result)
   local mod_cmd = cb_extra.mod_cmd
   local receiver = cb_extra.receiver
   local member = cb_extra.member
-  local text = 'No user @'..member..' in this group.'
+  local text = 'نیست در  @'..member..' در این گروه'
   for k,v in pairs(result.members) do
     vusername = v.username
     if vusername == member then
@@ -402,11 +402,11 @@ end
 local function modlist(msg)
   local data = load_data(_config.moderation.data)
   if not data[tostring(msg.to.id)] then
-    return 'Group is not added.'
+    return 'گروه تایید نشده .'
   end
   -- determine if table is empty
   if next(data[tostring(msg.to.id)]['moderators']) == nil then --fix way
-    return 'No moderator in this group.'
+    return 'ادمینی در این گروه نیست'
   end
   local i = 1
   local message = '\nList of moderators for ' .. string.gsub(msg.to.print_name, '_', ' ') .. ':\n'
@@ -436,7 +436,7 @@ local function cleanmember(cb_extra, success, result)
   local chat_id = "chat#id"..result.id
   local chatname = result.print_name
   if success == -1 then
-    return send_large_msg(receiver, '*Error: Invite link failed* \nReason: Not creator.')
+    return send_large_msg(receiver, '*دعوت از لینک پایان یافت* \nReason: ساخته نشده.')
   end
   for k,v in pairs(result.members) do
     kick_user(v.id, result.id)     

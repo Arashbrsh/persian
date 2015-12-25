@@ -342,12 +342,12 @@ Commands list :
 میتوانید از  "/" و "!" استفاده کنید
 
 
-*Only owner and mods can add bots in group
+*فقط صاحب گروه و ادمین ها میتوانند بات اد کنند
 
 
-*Only moderators and owner can use kick,ban,unban,newlink,link,setphoto,setname,lock,unlock,set rules,set about and settings commands
+*فقط صاحب گروه میتواند از این دستورات استفاده کند kick,ban,unban,newlink,link,setphoto,setname,lock,unlock,set rules,set about and settings
 
-*Only owner can use res,setowner,promote,demote and log commands
+*فقط صاحب گروه میتواند کسی را از ادمینی بر کنار و یا اضافه کند 
 
 ]]
 

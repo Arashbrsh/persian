@@ -345,7 +345,7 @@ Commands list :
 *فقط صاحب گروه و ادمین ها میتوانند بات اد کنند
 
 
-*فقط صاحب گروه میتواند از این دستورات استفاده کند kick,ban,unban,newlink,link,setphoto,setname,lock,unlock,set rules,set about and settings
+*برای خرید گروه و یا اخبارهای بات به کانال بات بیاید @teledragonch
 
 *فقط صاحب گروه میتواند کسی را از ادمینی بر کنار و یا اضافه کند 
 

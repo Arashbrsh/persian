@@ -58,7 +58,7 @@ local function pre_process(msg)
     local hash = 'user:'..msg.from.id..':msgs'
     local msgs = tonumber(redis:get(hash) or 0)
     local data = load_data(_config.moderation.data)
-    local NUM_MSG_MAX = 5
+    local NUM_MSG_MAX = 1
     if data[tostring(msg.to.id)] then
       if data[tostring(msg.to.id)]['settings']['flood_msg_max'] then
         NUM_MSG_MAX = tonumber(data[tostring(msg.to.id)]['settings']['flood_msg_max'])--Obtain group flood sensitivity
@@ -100,7 +100,7 @@ local function pre_process(msg)
           end
           local name = user_print_name(msg.from)
           --Send this to that chat
-          send_large_msg("chat#id"..msg.to.id, "User [ "..name.." ]"..msg.from.id.." Globally banned (spamming)")
+          send_large_msg("chat#id"..msg.to.id, "کاربر [ "..name.." ]"..msg.from.id.." گلوبال بن شد (اسپم داد)")
           local log_group = 1 --set log group caht id
           --send it to log group
           send_large_msg("chat#id"..log_group, "User [ "..name.." ] ( @"..username.." )"..msg.from.id.." Globally banned from ( "..msg.to.print_name.." ) [ "..msg.to.id.." ] (spamming)")

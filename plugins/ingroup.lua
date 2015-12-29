@@ -324,7 +324,7 @@ end
 local function get_rules(msg, data)
   local data_cat = 'rules'
   if not data[tostring(msg.to.id)][data_cat] then
-    return 'هیچ قانونی گزاشته نشده'
+    return 'هیچ قانونی گذاشته نشده'
   end
   local rules = data[tostring(msg.to.id)][data_cat]
   local rules = 'Chat rules:\n'..rules

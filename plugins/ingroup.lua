@@ -327,7 +327,7 @@ local function get_rules(msg, data)
     return 'هیچ قانونی گذاشته نشده'
   end
   local rules = data[tostring(msg.to.id)][data_cat]
-  local rules = 'Chat rules:\n'..rules
+  local rules = 'قوانین گروه:\n'..rules
   return rules
 end
 
@@ -492,7 +492,7 @@ local function run(msg, matches)
         return false
       end
       local rules = data[tostring(msg.to.id)][data_cat]
-      local rules = 'Welcome to "' .. string.gsub(msg.to.print_name, '_', ' ') ..'" this group has rules that you should follow:\n'..rules
+      local rules = 'خوش امدی به "' .. string.gsub(msg.to.print_name, '_', ' ') ..'" قوانین گروه اینا هستن:\n'..rules
       
       savelog(msg.to.id, name_log.." ["..msg.from.id.."] deleted user  "..msg.action.user.id)
       send_large_msg(receiver, rules)

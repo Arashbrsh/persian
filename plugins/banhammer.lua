@@ -107,12 +107,12 @@ local function username_id(cb_extra, success, result)
         local hash =  'banned:'..chat_id
         redis:srem(hash, member_id)
         return 'کاربر '..user_id..' از بن در امد'
-      elseif get_cmd == 'siktir' then
-        send_large_msg(receiver, 'کاربر @'..member..' ['..member_id..'] از همه گپها سیکتیر  شد')
-        return siktir_user(member_id, chat_id)
-      elseif get_cmd == 'siktir' then
-        send_large_msg(receiver, 'کاربر @'..member..' ['..member_id..'] از سیکتیر  در امد')
-        return unsiktir_user(member_id, chat_id)
+      elseif get_cmd == 'banall' then
+        send_large_msg(receiver, 'کاربر @'..member..' ['..member_id..'] از همه گپها بن شد')
+        return banall_user(member_id, chat_id)
+      elseif get_cmd == 'banall' then
+        send_large_msg(receiver, 'کاربر @'..member..' ['..member_id..']از همه گپها ان بن شد')
+        return unbanall_user(member_id, chat_id)
       end
     end
   end
@@ -249,7 +249,7 @@ local function run(msg, matches)
     return
   end
 
-  if matches[1]:lower() == 'siktir' then -- Global ban
+  if matches[1]:lower() == 'banall' then -- Global ban
     if type(msg.reply_id) ~="nil" and is_admin(msg) then
       return get_message(msg.reply_id,banall_by_reply, false)
     end
@@ -262,7 +262,7 @@ local function run(msg, matches)
          return false 
         end
         siktir_user(targetuser)
-        return 'کاربر ['..user_id..' ] از همه گروها سیکتیر  شد'
+        return 'کاربر ['..user_id..' ] از همه گروها بن شد'
       else
         local member = string.gsub(matches[2], '@', '')
         local get_cmd = 'siktir'
@@ -270,7 +270,7 @@ local function run(msg, matches)
       end
     end
   end
-  if matches[1]:lower() == 'unsiktir' then -- Global unban
+  if matches[1]:lower() == 'unbanall' then -- Global unban
     local user_id = matches[2]
     local chat_id = msg.to.id
     if msg.to.type == 'chat' then
@@ -278,11 +278,11 @@ local function run(msg, matches)
         if tonumber(matches[2]) == tonumber(our_id) then 
           return false 
         end
-        unsiktir_user(user_id)
-        return 'کاربر ['..user_id..' ] از همه گروها ان سیکتیر  شد'
+        unbanall_user(user_id)
+        return 'کاربر ['..user_id..' ] از همه گروها ان بن  شد'
       else
         local member = string.gsub(matches[2], '@', '')
-        local get_cmd = 'unsiktir'
+        local get_cmd = 'unbanall'
         chat_info(receiver, username_id, {get_cmd=get_cmd, receiver=receiver, chat_id=msg.to.id, member=member})
       end
     end
@@ -294,17 +294,17 @@ end
 
 return {
   patterns = {
-    "^[!/]([Ss]iktir) (.*)$",
-    "^[!/]([Ss]iktir)$",
+    "^[!/]([Bb]anall) (.*)$",
+    "^[!/]([Bb]anall)$",
     "^[!/]([Bb]anlist) (.*)$",
     "^[!/]([Bb]anlist)$",
     "^[!/]([Gg]banlist)$",
     "^[!/]([Bb]an) (.*)$",
     "^[!/]([Kk]ick)$",
     "^[!/]([Uu]nban) (.*)$",
-    "^[!/]([Uu]nsiktir) (.*)$",
-    "^[!/]([Uu]nsiktir)$",
-    "^[!/]([Kk]ick) (.*)$",
+    "^[!/]([Uu]nbanall) (.*)$",
+    "^[!/]([Uu]nbanall)$",
+    "^[?!/]([Kk]ick) (.*)$",
     "^[!/]([Kk]ickme)$",
     "^[!/]([Bb]an)$",
     "^[!/]([Uu]nban)$",

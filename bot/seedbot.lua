@@ -244,7 +244,7 @@ ARASH
 @teledragonch [فارسی]
 ]],
     help_text = [[
-Commands list :
+DRAGON ™
 لیست دستورات ربات ✅دراگون بات
 !kick [username|id]
 کیک باریپلی هم میتونید

@@ -362,7 +362,7 @@ local function promote(receiver, member_username, member_id)
   end
   data[group]['moderators'][tostring(member_id)] = member_username
   save_data(_config.moderation.data, data)
-  return send_large_msg(receiver, '@'..member_username..' admin shod')
+  return send_large_msg(receiver, '@'..member_username..' ادمین شد')
 end
 
 local function demote(receiver, member_username, member_id)
@@ -376,14 +376,14 @@ local function demote(receiver, member_username, member_id)
   end
   data[group]['moderators'][tostring(member_id)] = nil
   save_data(_config.moderation.data, data)
-  return send_large_msg(receiver, '@'..member_username..' az admin barknar shod')
+  return send_large_msg(receiver, '@'..member_username..' از ادمینی بر کنار شد')
 end
 
 local function username_id(cb_extra, success, result)
   local mod_cmd = cb_extra.mod_cmd
   local receiver = cb_extra.receiver
   local member = cb_extra.member
-  local text = 'nist karbary  @'..member..' dar in group'
+  local text = 'نیست کاربری  @'..member..' در این گروه'
   for k,v in pairs(result.members) do
     vusername = v.username
     if vusername == member then
@@ -606,12 +606,12 @@ local function run(msg, matches)
     if matches[1] == 'setphoto' and is_momod(msg) then
       data[tostring(msg.to.id)]['settings']['set_photo'] = 'waiting'
       save_data(_config.moderation.data, data)
-      return 'Please send me new group photo now'
+      return 'لطفا الان عکس رو برام بفرست'
     end
 
     if matches[1] == 'promote' and matches[2] then
       if not is_owner(msg) then
-        return "Only owner can promote"
+        return "فقط اونر میتواند کسی را ادمین کند"
       end
       local member = string.gsub(matches[2], "@", "")
       local mod_cmd = 'promote' 
@@ -714,14 +714,14 @@ local function run(msg, matches)
     end
     if matches[1] == 'newlink' then
       if not is_momod(msg) then
-        return "For moderators only!"
+        return "برای ادمینا"
       end
       local function callback (extra , success, result)
         local receiver = 'chat#'..msg.to.id
         if success == 0 then
            return send_large_msg(receiver, '*Error: Invite link failed* \nReason: Not creator.')
         end
-        send_large_msg(receiver, "Created a new link")
+        send_large_msg(receiver, "لینک جدید ساخته شد")
         data[tostring(msg.to.id)]['settings']['set_link'] = result
         save_data(_config.moderation.data, data)
       end

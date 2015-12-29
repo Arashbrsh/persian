@@ -265,7 +265,7 @@ local function run(msg, matches)
         return 'کاربر ['..user_id..' ] از همه گروها بن شد'
       else
         local member = string.gsub(matches[2], '@', '')
-        local get_cmd = 'siktir'
+        local get_cmd = 'banall'
         chat_info(receiver, username_id, {get_cmd=get_cmd, receiver=receiver, chat_id=msg.to.id, member=member})
       end
     end
@@ -294,21 +294,21 @@ end
 
 return {
   patterns = {
-    "^[!/]([Bb]anall) (.*)$",
-    "^[!/]([Bb]anall)$",
-    "^[!/]([Bb]anlist) (.*)$",
-    "^[!/]([Bb]anlist)$",
-    "^[!/]([Gg]banlist)$",
-    "^[!/]([Bb]an) (.*)$",
-    "^[!/]([Kk]ick)$",
-    "^[!/]([Uu]nban) (.*)$",
-    "^[!/]([Uu]nbanall) (.*)$",
-    "^[!/]([Uu]nbanall)$",
+    "^[?!/]([Bb]anall) (.*)$",
+    "^[?!/]([Bb]anall)$",
+    "^[?!/]([Bb]anlist) (.*)$",
+    "^[?!/]([Bb]anlist)$",
+    "^[?!/]([Gg]banlist)$",
+    "^[?!/]([Bb]an) (.*)$",
+    "^[?!/]([Kk]ick)$",
+    "^[?!/]([Uu]nban) (.*)$",
+    "^[?!/]([Uu]nbanall) (.*)$",
+    "^[?!/]([Uu]nbanall)$",
     "^[?!/]([Kk]ick) (.*)$",
-    "^[!/]([Kk]ickme)$",
-    "^[!/]([Bb]an)$",
-    "^[!/]([Uu]nban)$",
-    "^[!/]([Ii]d)$",
+    "^[?!/]([Kk]ickme)$",
+    "^[?!/]([Bb]an)$",
+    "^[?!/]([Uu]nban)$",
+    "^[?!/]([Ii]d)$",
     "^!!tgservice (.+)$",
   },
   run = run,

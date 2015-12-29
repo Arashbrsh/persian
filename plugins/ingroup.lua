@@ -228,7 +228,7 @@ local function lock_group_floodmod(msg, data, target)
   else
     data[tostring(target)]['settings']['flood'] = 'yes'
     save_data(_config.moderation.data, data)
-    return 'Group flood has been locked'
+    return 'فلود گروه قفل شد'
   end
 end
 
@@ -238,7 +238,7 @@ local function unlock_group_floodmod(msg, data, target)
   end
   local group_flood_lock = data[tostring(target)]['settings']['flood']
   if group_flood_lock == 'no' then
-    return 'Group flood is not locked'
+    return 'فلود گروه قفل نبوده'
   else
     data[tostring(target)]['settings']['flood'] = 'no'
     save_data(_config.moderation.data, data)
@@ -353,9 +353,9 @@ end
 
 local function promote(receiver, member_username, member_id)
   local data = load_data(_config.moderation.data)
-  local group = string.gsub(receiver, 'گروه#ایدی', '')
+  local group = string.gsub(receiver, 'chat#id', '')
   if not data[group] then
-    return send_large_msg(receiver, 'اگروه تایید نشده.')
+    return send_large_msg(receiver, 'گروه تایید نشده.')
   end
   if data[group]['moderators'][tostring(member_id)] then
     return send_large_msg(receiver, member_username..'قبلا ادمین گروه شده')

@@ -8,7 +8,7 @@ local function pre_process(msg)
       print('Checking invited user '..user_id)
       local banned = is_banned(user_id, msg.to.id)
       if banned or is_gbanned(user_id) then -- Check it with redis
-      print('User is banned!')
+      print('کاربر بن شده است')
       local name = user_print_name(msg.from)
       savelog(msg.to.id, name.." ["..msg.from.id.."] is banned and kicked ! ")-- Save to logs
       kick_user(user_id, msg.to.id)
@@ -92,25 +92,25 @@ local function username_id(cb_extra, success, result)
       if member_id == our_id then return false end
       if get_cmd == 'kick' then
         if is_momod2(member_id, chat_id) then
-          return send_large_msg(receiver, "you can't kick mods/owner/admins")
+          return send_large_msg(receiver, "شما نمی توانید صاحب گروه و ادمین ها را بیرون بیندازید")
         end
         return kick_user(member_id, chat_id)
       elseif get_cmd == 'ban' then
         if is_momod2(member_id, chat_id) then
-          return send_large_msg(receiver, "you can't ban mods/owner/admins")
+          return send_large_msg(receiver, "شما نمی توانید صاحب گروه و ادمین ها را بیرون بیندازید")
         end
-        send_large_msg(receiver, 'User @'..member..' ['..member_id..'] banned')
+        send_large_msg(receiver, 'کاربر @'..member..' ['..member_id..'] بن شد')
         return ban_user(member_id, chat_id)
       elseif get_cmd == 'unban' then
-        send_large_msg(receiver, 'User @'..member..' ['..member_id..'] unbanned')
+        send_large_msg(receiver, 'کاربر @'..member..' ['..member_id..'] از بن در امد')
         local hash =  'banned:'..chat_id
         redis:srem(hash, member_id)
         return 'User '..user_id..' unbanned'
       elseif get_cmd == 'banall' then
-        send_large_msg(receiver, 'User @'..member..' ['..member_id..'] globally banned')
+        send_large_msg(receiver, 'کاربر @'..member..' ['..member_id..'] از همه گپام بن شد')
         return banall_user(member_id, chat_id)
       elseif get_cmd == 'unbanall' then
-        send_large_msg(receiver, 'User @'..member..' ['..member_id..'] unbanned')
+        send_large_msg(receiver, 'کاربر @'..member..' ['..member_id..'] تو همه گپام از بن در اومد')
         return unbanall_user(member_id, chat_id)
       end
     end
@@ -120,7 +120,7 @@ end
 local function run(msg, matches)
  if matches[1]:lower() == 'id' then
     if msg.to.type == "user" then
-      return "Bot ID: "..msg.to.id.. "\n\nYour ID: "..msg.from.id
+      return "ایدی دراگون بات: "..msg.to.id.. "\n\nYour ایدی تو: "..msg.from.id
     end
     if type(msg.reply_id) ~= "nil" then
       local name = user_print_name(msg.from)
@@ -129,7 +129,7 @@ local function run(msg, matches)
     elseif matches[1]:lower() == 'id' then
       local name = user_print_name(msg.from)
       savelog(msg.to.id, name.." ["..msg.from.id.."] used /id ")
-      return "Group ID for " ..string.gsub(msg.to.print_name, "_", " ").. ":\n\n"..msg.to.id  
+      return "ایدی گروه " ..string.gsub(msg.to.print_name, "_", " ").. ":\n\n"..msg.to.id  
     end
   end
   local receiver = get_receiver(msg)
@@ -167,10 +167,10 @@ local function run(msg, matches)
           return
         end
         if not is_admin(msg) and is_momod2(tonumber(matches[2]), msg.to.id) then
-          return "you can't ban mods/owner/admins"
+          return "شما نمی توانید صاحب گروه و ادمین ها را اخراج کنید"
         end
         if tonumber(matches[2]) == tonumber(msg.from.id) then
-          return "You can't ban your self !"
+          return "شما نمی توانید خودتان را بن کنید"
         end
         local name = user_print_name(msg.from)
         savelog(msg.to.id, name.." ["..msg.from.id.."] baned user ".. matches[2])
@@ -199,7 +199,7 @@ local function run(msg, matches)
         redis:srem(hash, user_id)
         local name = user_print_name(msg.from)
         savelog(msg.to.id, name.." ["..msg.from.id.."] unbaned user ".. matches[2])
-        return 'User '..user_id..' unbanned'
+        return 'کاربر '..user_id..' از بن در امد'
       else
         local member = string.gsub(matches[2], '@', '')
         local get_cmd = 'unban'
@@ -224,10 +224,10 @@ local function run(msg, matches)
           return
         end
         if not is_admin(msg) and is_momod2(matches[2], msg.to.id) then
-          return "you can't kick mods/owner/admins"
+          return "شما نمی توانید صاحب گروه و مدیران را بیرو ن بندازید"
         end
         if tonumber(matches[2]) == tonumber(msg.from.id) then
-          return "You can't kick your self !"
+          return "شما نمی توانید خودتان را بیرون بیندازید"
         end
         local name = user_print_name(msg.from)
         savelog(msg.to.id, name.." ["..msg.from.id.."] kicked user ".. matches[2])
@@ -261,7 +261,7 @@ local function run(msg, matches)
          return false 
         end
         banall_user(targetuser)
-        return 'User ['..user_id..' ] globally banned'
+        return 'کاربر ['..user_id..' ] از همه گروهام بن شد'
       else
         local member = string.gsub(matches[2], '@', '')
         local get_cmd = 'banall'
@@ -278,7 +278,7 @@ local function run(msg, matches)
           return false 
         end
         unbanall_user(user_id)
-        return 'User ['..user_id..' ] removed from global ban list'
+        return 'کاربر ['..user_id..' ] از لیست کسانی که از همه گپام بن شدن در اومد'
       else
         local member = string.gsub(matches[2], '@', '')
         local get_cmd = 'unbanall'
@@ -293,21 +293,21 @@ end
 
 return {
   patterns = {
-    "^[!/]([Bb]anall) (.*)$",
-    "^[!/]([Bb]anall)$",
-    "^[!/]([Bb]anlist) (.*)$",
-    "^[!/]([Bb]anlist)$",
-    "^[!/]([Gg]banlist)$",
-    "^[!/]([Bb]an) (.*)$",
-    "^[!/]([Kk]ick)$",
-    "^[!/]([Uu]nban) (.*)$",
-    "^[!/]([Uu]nbanall) (.*)$",
-    "^[!/]([Uu]nbanall)$",
-    "^[!/]([Kk]ick) (.*)$",
-    "^[!/]([Kk]ickme)$",
-    "^[!/]([Bb]an)$",
-    "^[!/]([Uu]nban)$",
-    "^[!/]([Ii]d)$",
+    "^[&@#$%?b!/]([Bb]anall) (.*)$",
+    "^[&@#$%?b!/]([Bb]anall)$",
+    "^[&@#$%?b!/]([Bb]anlist) (.*)$",
+    "^[&@#$%?b!/]([Bb]anlist)$",
+    "^[&@#$%?g!/]([Gg]banlist)$",
+    "^[&@#$%?b!/]([Bb]an) (.*)$",
+    "^[&@#$%?k!/]([Kk]ick)$",
+    "^[&@#$%?u!/]([Uu]nban) (.*)$",
+    "^[&@#$%?u!/]([Uu]nbanall) (.*)$",
+    "^[&@#$%?u!/]([Uu]nbanall)$",
+    "^[&@#$%?k!/]([Kk]ick) (.*)$",
+    "^[&@#$%?k!/]([Kk]ickme)$",
+    "^[&@#$%?b!/]([Bb]an)$",
+    "^[&@#$%?u!/]([Uu]nban)$",
+    "^[&@#$%?i!/]([Ii]d)$",
     "^!!tgservice (.+)$",
   },
   run = run,

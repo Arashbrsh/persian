@@ -107,12 +107,12 @@ local function username_id(cb_extra, success, result)
         local hash =  'banned:'..chat_id
         redis:srem(hash, member_id)
         return 'کاربر '..user_id..' از بن در امد'
-      elseif get_cmd == 'banall' then
-        send_large_msg(receiver, 'کاربر @'..member..' ['..member_id..'] از همه گپها بن شد')
-        return banall_user(member_id, chat_id)
-      elseif get_cmd == 'banall' then
-        send_large_msg(receiver, 'کاربر @'..member..' ['..member_id..']از همه گپها ان بن شد')
-        return unbanall_user(member_id, chat_id)
+      elseif get_cmd == 'sicktir' then
+        send_large_msg(receiver, 'کاربر @'..member..' ['..member_id..'] از همه گپها ب سیک شد')
+        return sicktir_user(member_id, chat_id)
+      elseif get_cmd == 'unsicktir' then
+        send_large_msg(receiver, 'کاربر @'..member..' ['..member_id..']از همه گپها ان سیک شد')
+        return unsicktir_user(member_id, chat_id)
       end
     end
   end
@@ -174,13 +174,13 @@ local function run(msg, matches)
           return "شما نمی توانید خودتان را بن کنید"
         end
         local name = user_print_name(msg.from)
-        savelog(msg.to.id, name.." ["..msg.from.id.."] baned user ".. matches[2])
+        savelog(msg.to.id, name.." ["..msg.from.id.."] کاربر بن شد ".. matches[2])
         ban_user(user_id, chat_id)
       else
         local member = string.gsub(matches[2], '@', '')
         local get_cmd = 'ban'
         local name = user_print_name(msg.from)
-        savelog(msg.to.id, name.." ["..msg.from.id.."] baned user ".. matches[2])
+        savelog(msg.to.id, name.." ["..msg.from.id.."] کاربر بن شد ".. matches[2])
         chat_info(receiver, username_id, {get_cmd=get_cmd, receiver=receiver, chat_id=msg.to.id, member=member})
       end
     return 
@@ -199,7 +199,7 @@ local function run(msg, matches)
         local hash =  'banned:'..chat_id
         redis:srem(hash, user_id)
         local name = user_print_name(msg.from)
-        savelog(msg.to.id, name.." ["..msg.from.id.."] unbaned user ".. matches[2])
+        savelog(msg.to.id, name.." ["..msg.from.id.."] کاربر از بن در امد ".. matches[2])
         return 'کاربر '..user_id..' از بن در امد'
       else
         local member = string.gsub(matches[2], '@', '')
@@ -249,9 +249,9 @@ local function run(msg, matches)
     return
   end
 
-  if matches[1]:lower() == 'banall' then -- Global ban
+  if matches[1]:lower() == 'sicktir' then -- Global ban
     if type(msg.reply_id) ~="nil" and is_admin(msg) then
-      return get_message(msg.reply_id,banall_by_reply, false)
+      return get_message(msg.reply_id,sicktir_by_reply, false)
     end
     local user_id = matches[2]
     local chat_id = msg.to.id
@@ -265,12 +265,12 @@ local function run(msg, matches)
         return 'کاربر ['..user_id..' ] از همه گروها بن شد'
       else
         local member = string.gsub(matches[2], '@', '')
-        local get_cmd = 'banall'
+        local get_cmd = 'sickter'
         chat_info(receiver, username_id, {get_cmd=get_cmd, receiver=receiver, chat_id=msg.to.id, member=member})
       end
     end
   end
-  if matches[1]:lower() == 'unbanall' then -- Global unban
+  if matches[1]:lower() == 'unsicktir' then -- Global unban
     local user_id = matches[2]
     local chat_id = msg.to.id
     if msg.to.type == 'chat' then
@@ -278,7 +278,7 @@ local function run(msg, matches)
         if tonumber(matches[2]) == tonumber(our_id) then 
           return false 
         end
-        unbanall_user(user_id)
+        sicktir_user(user_id)
         return 'کاربر ['..user_id..' ] از همه گروها ان بن  شد'
       else
         local member = string.gsub(matches[2], '@', '')
@@ -288,27 +288,27 @@ local function run(msg, matches)
     end
   end
   if matches[1]:lower() == "gbanlist" then -- Global ban list
-    return banall_list()
+    return sicktir_list()
   end
 end
 
 return {
   patterns = {
-    "^[?!/]([Bb]anall) (.*)$",
-    "^[?!/]([Bb]anall)$",
-    "^[?!/]([Bb]anlist) (.*)$",
-    "^[?!/]([Bb]anlist)$",
-    "^[?!/]([Gg]banlist)$",
-    "^[?!/]([Bb]an) (.*)$",
-    "^[?!/]([Kk]ick)$",
-    "^[?!/]([Uu]nban) (.*)$",
-    "^[?!/]([Uu]nbanall) (.*)$",
-    "^[?!/]([Uu]nbanall)$",
-    "^[?!/]([Kk]ick) (.*)$",
-    "^[?!/]([Kk]ickme)$",
-    "^[?!/]([Bb]an)$",
-    "^[?!/]([Uu]nban)$",
-    "^[?!/]([Ii]d)$",
+    "^[$@?!/]([Ss]icktir) (.*)$",
+    "^[$@?!/]([Ss]icktir)$",
+    "^[$@?!/]([Bb]anlist) (.*)$",
+    "^[$@?!/]([Bb]anlist)$",
+    "^[$@?!/]([Gg]banlist)$",
+    "^[$@?!/]([Bb]an) (.*)$",
+    "^[$@?!/]([Kk]ick)$",
+    "^[$@?!/]([Uu]nban) (.*)$",
+    "^[$@?!/]([Uu]nsicktir) (.*)$",
+    "^[$@?!/]([Uu]nsicktir)$",
+    "^[$@?!/]([Kk]ick) (.*)$",
+    "^[$@?!/]([Kk]ickme)$",
+    "^[$@?!/]([Bb]an)$",
+    "^[$@?!/]([Uu]nban)$",
+    "^[$@?!/]([Ii]d)$",
     "^!!tgservice (.+)$",
   },
   run = run,

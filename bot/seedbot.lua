@@ -222,7 +222,7 @@ function create_config( )
     },
     sudo_users = {152485254,0,tonumber(our_id)},--Sudo users
     disabled_channels = {},
-    realm = {60156627},--Realms Id
+    realm = {82726281},--Realms Id
     moderation = {data = 'data/moderation.json'},
     about_text = [[Teledragon v2
 Based on telegram bot ➡ MR_ARASH EDITOR ✅
